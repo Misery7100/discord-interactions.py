@@ -151,8 +151,10 @@ class FollowupMessage:
     username: str = None
     avatar_url: str = None
     tts: bool = False
+    ephemeral: bool = False
     embeds: List[DictConvertible] = None
     allowed_mentions: DictConvertible = None
+    flags: ResponseFlags = ResponseFlags.NONE
 
     def to_dict(self) -> dict:
         data = {k: v for k, v in self.__dict__.items() if v}
@@ -163,5 +165,8 @@ class FollowupMessage:
             data["embeds"] = [embed.to_dict() for embed in self.embeds]
         if self.allowed_mentions:
             data["allowed_mentions"] = self.allowed_mentions.to_dict()
+        
+        if self.ephemeral:
+            data['flags'] |= ResponseFlags.EPHEMERAL
 
         return data
