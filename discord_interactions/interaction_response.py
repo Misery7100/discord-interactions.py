@@ -165,8 +165,7 @@ class FollowupMessage:
             data["embeds"] = [embed.to_dict() for embed in self.embeds]
         if self.allowed_mentions:
             data["allowed_mentions"] = self.allowed_mentions.to_dict()
-        
         if self.ephemeral:
-            data['flags'] |= ResponseFlags.EPHEMERAL
+            data['flags'] = ResponseFlags.EPHEMERAL.value
 
         return data
